@@ -1,4 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
+﻿using Condominiosdotcom.Api.Interfaces;
+using Condominiosdotcom.Api.Models;
 using Condominiosdotcom.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,8 @@ namespace Condominiosdotcom.Api.Controllers
     public class ResidencialController : ControllerBase
     {
 
-        public readonly IResidencialData _ResidencialData;
-        public ResidencialController(IResidencialData residencialData)
+        public readonly IResidencialService _ResidencialData;
+        public ResidencialController(IResidencialService residencialData)
         {
             _ResidencialData = residencialData;
         }
@@ -24,9 +25,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpGet, Route("getAll")]
         public IActionResult Get()
         {
-            if (_ResidencialData.GetResidencial().Count() > 0)
+            if (_ResidencialData.Get().Count() > 0)
             {
-                return Ok(_ResidencialData.GetResidencial());
+                return Ok(_ResidencialData.Get());
             }
             else
             {
@@ -43,7 +44,7 @@ namespace Condominiosdotcom.Api.Controllers
 
             if (codigo > 0)
             {
-                return Ok(_ResidencialData.GetResidencial(codigo));
+                return Ok(_ResidencialData.Get(codigo));
             }
             else
             {
@@ -58,7 +59,7 @@ namespace Condominiosdotcom.Api.Controllers
         {
             if (residencial != null)
             {
-                return Ok(_ResidencialData.AddResidencial(residencial));
+                return Ok(_ResidencialData.Add(residencial));
             }
             else
             {
@@ -73,7 +74,7 @@ namespace Condominiosdotcom.Api.Controllers
             if (residencial != null)
             {
 
-                return Ok(_ResidencialData.ModifyResidencial(residencial));
+                return Ok(_ResidencialData.Modify(residencial));
             }
             else
             {
@@ -85,9 +86,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpDelete, Route("DeleteOne/{codigo}")]
         public IActionResult Delete(int codigo)
         {
-            if (_ResidencialData.GetResidencial(codigo) != null)
+            if (_ResidencialData.Get(codigo) != null)
             {
-                _ResidencialData.DeleteResidencial(codigo);
+                _ResidencialData.Delete(codigo);
                 return Ok();
             }
             else

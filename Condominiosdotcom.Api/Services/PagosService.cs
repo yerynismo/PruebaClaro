@@ -1,4 +1,5 @@
 ﻿using Condominiosdotcom.Api.Models;
+using Condominiosdotcom.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Condominiosdotcom.Api.Services
 {
-    public class PagosService : IPagosData
+    public class PagosService : IPagosService
     {
         private readonly DataContext _context;
         public PagosService(DataContext context)
         {
             _context = context;
         }
-        public Pagos AddPagos(Pagos newPagos)
+        public Pagos Add(Pagos newPagos)
         {
             var nuevo = _context.Pagos.Add(newPagos);
             _context.SaveChanges();
             return nuevo.Entity;
         }
 
-        public void DeletePagos(int id)
+        public void Delete(int id)
         {
             try
             {
@@ -39,19 +40,19 @@ namespace Condominiosdotcom.Api.Services
             }
         }
 
-        public IEnumerable<Pagos> GetPagos()
+        public IEnumerable<Pagos> Get()
         {
             var Pagos = _context.Pagos.ToList();
             return Pagos;
         }
 
-        public Pagos GetPagos(int id)
+        public Pagos Get(int id)
         {
             var unPago = _context.Pagos.FirstOrDefault(x => x.PagoID == id);
             return unPago;
         }
 
-        public Pagos ModifyPagos(Pagos updatePagos)
+        public Pagos Modify(Pagos updatePagos)
         {
             _context.Entry(updatePagos).State = EntityState.Modified;
             _context.SaveChanges();

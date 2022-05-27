@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Condominiosdotcom.Api.Services;
+using Condominiosdotcom.Api.Interfaces;
 
 namespace Condominiosdotcom.Api
 {
@@ -30,12 +31,14 @@ namespace Condominiosdotcom.Api
         {
 
             services.AddControllers();
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddScoped<IClienteData, ClienteService>();
-            services.AddScoped<IResidencialData, ResidencialService>();
-            services.AddScoped<ICondominioData, CondominioService>();
-            services.AddScoped<IPagosData, PagosService>();
-            services.AddScoped<ICuotaData, CuotasService>();
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // Dependency Injection
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IResidencialService, ResidencialService>();
+            services.AddScoped<ICondominioService, CondominioService>();
+            services.AddScoped<IPagosService, PagosService>();
+            services.AddScoped<ICuotaService, CuotasService>();
+            services.AddScoped<IConceptoService, ConceptoService>();
 
             services.AddSwaggerGen(c =>
             {

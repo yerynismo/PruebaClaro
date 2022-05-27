@@ -1,4 +1,5 @@
 ﻿using Condominiosdotcom.Api.Models;
+using Condominiosdotcom.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Condominiosdotcom.Api.Services
 {
-    public class ClienteService : IClienteData
+    public class ClienteService : IClienteService
     {
         private readonly DataContext _context;
         public ClienteService(DataContext context)
@@ -15,14 +16,14 @@ namespace Condominiosdotcom.Api.Services
             _context = context;
         }
 
-        public Cliente AddClient(Cliente newClient)
+        public Cliente Add(Cliente newClient)
         {
             var nuevo = _context.Cliente.Add(newClient);
             _context.SaveChanges();
             return nuevo.Entity;
         }
 
-        public void DeleteClient(int id)
+        public void Delete(int id)
         {
             try
             {
@@ -45,13 +46,13 @@ namespace Condominiosdotcom.Api.Services
             return cliente;
         }
 
-        public Cliente GetClient(int id)
+        public Cliente Get(int id)
         {
             var unCliente = _context.Cliente.FirstOrDefault(x => x.ClienteID == id);
             return unCliente;
         }
 
-        public Cliente ModifyClient(Cliente updateClient)
+        public Cliente Modify(Cliente updateClient)
         {
             _context.Entry(updateClient).State = EntityState.Modified;
             _context.SaveChanges();

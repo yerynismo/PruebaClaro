@@ -1,4 +1,5 @@
 ﻿using Condominiosdotcom.Api.Models;
+using Condominiosdotcom.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Condominiosdotcom.Api.Services
 {
-    public class CuotasService : ICuotaData
+    public class CuotasService : ICuotaService
     {
         private readonly DataContext _context;
         public CuotasService(DataContext context)
         {
             _context = context;
         }
-        public Cuotas AddCuota(Cuotas newCuota)
+        public Cuotas Add(Cuotas newCuota)
         {
             var nuevo = _context.Cuotas.Add(newCuota);
             _context.SaveChanges();
             return nuevo.Entity;
         }
 
-        public void DeleteCuota(int id)
+        public void Delete(int id)
         {
             try
             {
@@ -39,19 +40,19 @@ namespace Condominiosdotcom.Api.Services
             }
         }
 
-        public IEnumerable<Cuotas> GetCuota()
+        public IEnumerable<Cuotas> Get()
         {
             var Cuota = _context.Cuotas.ToList();
             return Cuota;
         }
 
-        public Cuotas GetCuota(int id)
+        public Cuotas Get(int id)
         {
             var unCuota = _context.Cuotas.FirstOrDefault(x => x.CuotaID == id);
             return unCuota;
         }
 
-        public Cuotas ModifyCuota(Cuotas updateCuota)
+        public Cuotas Modify(Cuotas updateCuota)
         {
             _context.Entry(updateCuota).State = EntityState.Modified;
             _context.SaveChanges();

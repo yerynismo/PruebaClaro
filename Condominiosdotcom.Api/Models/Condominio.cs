@@ -11,9 +11,8 @@ namespace Condominiosdotcom.Api.Models
     {
         [Key]
         public int CondominioID { get; set; }
-    
-        public string NombreCondominio { get; set; }
-        public string Apart_casa { get; set; }
+  
+        public string Vivienda { get; set; }
         public int ResidencialID { get; set; }
         [ForeignKey("ResidencialID")]
         public virtual Residencial ResidencialE { get; set; }

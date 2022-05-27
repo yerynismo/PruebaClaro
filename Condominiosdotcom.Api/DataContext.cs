@@ -22,6 +22,7 @@ namespace Condominiosdotcom.Api
         public DbSet<Cuotas> Cuotas { get; set; }
         public DbSet<Pagos> Pagos { get; set; }
         public DbSet<Residencial> Residencial { get; set; }
+        public DbSet<Concepto> Concepto { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

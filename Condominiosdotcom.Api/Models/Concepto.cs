@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Condominiosdotcom.Api.Models
 {
-    public class Cliente
+    public class Concepto
     {
         [Key]
-        public int ClienteID { get; set; }
-        [Required]
-        public string Nombre { get; set; }
-        [Required]
-        public string Apellido { get; set; }
- 
+        public int ConceptoID { get; set; }
+        public string Elconcepto { get; set; }
+
+        public bool Recurrencia { get; set; }
     }
 }

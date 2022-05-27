@@ -1,5 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
-using Condominiosdotcom.Api.Interfaces;
+﻿using Condominiosdotcom.Api.Interfaces;
+using Condominiosdotcom.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,18 +8,22 @@ using System.Threading.Tasks;
 
 namespace Condominiosdotcom.Api.Services
 {
-    public class CondominioService : ICondominioService
+    public class ConceptoService : IConceptoService
     {
         private readonly DataContext _context;
-        public CondominioService(DataContext context)
+
+        public ConceptoService(DataContext context)
         {
             _context = context;
         }
-        public Condominio Add(Condominio newCondominio)
+
+        public Concepto Add(Concepto newConcept)
         {
-            var nuevo = _context.Condominio.Add(newCondominio);
+            var nuevo = _context.Concepto.Add(newConcept);
             _context.SaveChanges();
             return nuevo.Entity;
+
+
         }
 
         public void Delete(int id)
@@ -40,23 +44,23 @@ namespace Condominiosdotcom.Api.Services
             }
         }
 
-        public IEnumerable<Condominio> Get()
+        public IEnumerable<Concepto> Get()
         {
-            var condominio = _context.Condominio.Include(x => x.ResidencialE).Include(x => x.ClienteE).ToList();
-            return condominio;
+            var concepto = _context.Concepto.ToList();
+            return concepto;
         }
 
-        public Condominio Get(int id)
+        public Concepto Get(int id)
         {
-            var unCondominio = _context.Condominio.FirstOrDefault(x => x.CondominioID == id);
-            return unCondominio;
+            var unConcepto = _context.Concepto.FirstOrDefault(x => x.ConceptoID == id);
+            return unConcepto;
         }
 
-        public Condominio Modify(Condominio updateCondominio)
+        public Concepto Modify(Concepto updateConcept)
         {
-            _context.Entry(updateCondominio).State = EntityState.Modified;
+            _context.Entry(updateConcept).State = EntityState.Modified;
             _context.SaveChanges();
-            return updateCondominio;
+            return updateConcept;
         }
     }
 }

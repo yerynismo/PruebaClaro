@@ -1,4 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
+﻿using Condominiosdotcom.Api.Interfaces;
+using Condominiosdotcom.Api.Models;
 using Condominiosdotcom.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,8 @@ namespace Condominiosdotcom.Api.Controllers
     [ApiController]
     public class CuotasController : ControllerBase
     {
-        public readonly ICuotaData _CuotasData;
-        public CuotasController(ICuotaData CuotasData)
+        public readonly ICuotaService _CuotasData;
+        public CuotasController(ICuotaService CuotasData)
         {
             _CuotasData = CuotasData;
         }
@@ -24,9 +25,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpGet, Route("getAll")]
         public IActionResult Get()
         {
-            if (_CuotasData.GetCuota().Count() > 0)
+            if (_CuotasData.Get().Count() > 0)
             {
-                return Ok(_CuotasData.GetCuota());
+                return Ok(_CuotasData.Get());
             }
             else
             {
@@ -43,7 +44,7 @@ namespace Condominiosdotcom.Api.Controllers
 
             if (codigo > 0)
             {
-                return Ok(_CuotasData.GetCuota(codigo));
+                return Ok(_CuotasData.Get(codigo));
             }
             else
             {
@@ -58,7 +59,7 @@ namespace Condominiosdotcom.Api.Controllers
         {
             if (Cuotas != null)
             {
-                return Ok(_CuotasData.AddCuota(Cuotas));
+                return Ok(_CuotasData.Add(Cuotas));
             }
             else
             {
@@ -73,7 +74,7 @@ namespace Condominiosdotcom.Api.Controllers
             if (Cuotas != null)
             {
 
-                return Ok(_CuotasData.ModifyCuota(Cuotas));
+                return Ok(_CuotasData.Modify(Cuotas));
             }
             else
             {
@@ -85,9 +86,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpDelete, Route("DeleteOne/{codigo}")]
         public IActionResult Delete(int codigo)
         {
-            if (_CuotasData.GetCuota(codigo) != null)
+            if (_CuotasData.Get(codigo) != null)
             {
-                _CuotasData.DeleteCuota(codigo);
+                _CuotasData.Delete(codigo);
                 return Ok();
             }
             else

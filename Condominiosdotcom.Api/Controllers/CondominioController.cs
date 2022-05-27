@@ -1,4 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
+﻿using Condominiosdotcom.Api.Interfaces;
+using Condominiosdotcom.Api.Models;
 using Condominiosdotcom.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,8 @@ namespace Condominiosdotcom.Api.Controllers
     [ApiController]
     public class CondominioController : ControllerBase
     {
-        public readonly ICondominioData _CondominioData;
-        public CondominioController(ICondominioData condominioData)
+        public readonly ICondominioService _CondominioData;
+        public CondominioController(ICondominioService condominioData)
         {
             _CondominioData = condominioData;
         }
@@ -23,9 +24,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpGet, Route("getAll")]
         public IActionResult Get()
         {
-            if (_CondominioData.GetCondominio().Count() > 0)
+            if (_CondominioData.Get().Count() > 0)
             {
-                return Ok(_CondominioData.GetCondominio());
+                return Ok(_CondominioData.Get());
             }
             else
             {
@@ -42,7 +43,7 @@ namespace Condominiosdotcom.Api.Controllers
 
             if (codigo > 0)
             {
-                return Ok(_CondominioData.GetCondominio(codigo));
+                return Ok(_CondominioData.Get(codigo));
             }
             else
             {
@@ -57,7 +58,7 @@ namespace Condominiosdotcom.Api.Controllers
         {
             if (condominio != null)
             {
-                return Ok(_CondominioData.AddCondominio(condominio));
+                return Ok(_CondominioData.Add(condominio));
             }
             else
             {
@@ -72,7 +73,7 @@ namespace Condominiosdotcom.Api.Controllers
             if (condominio != null)
             {
 
-                return Ok(_CondominioData.ModifyCondominio(condominio));
+                return Ok(_CondominioData.Modify(condominio));
             }
             else
             {
@@ -84,9 +85,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpDelete, Route("DeleteOne/{codigo}")]
         public IActionResult Delete(int codigo)
         {
-            if (_CondominioData.GetCondominio(codigo) != null)
+            if (_CondominioData.Get(codigo) != null)
             {
-                _CondominioData.DeleteCondominio(codigo);
+                _CondominioData.Delete(codigo);
                 return Ok();
             }
             else

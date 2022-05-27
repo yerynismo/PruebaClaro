@@ -1,4 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
+﻿using Condominiosdotcom.Api.Interfaces;
+using Condominiosdotcom.Api.Models;
 using Condominiosdotcom.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,8 @@ namespace Condominiosdotcom.Api.Controllers
     [ApiController]
     public class PagosController : ControllerBase
     {
-        public readonly IPagosData _PagosData;
-        public PagosController(IPagosData PagosData)
+        public readonly IPagosService _PagosData;
+        public PagosController(IPagosService PagosData)
         {
             _PagosData = PagosData;
         }
@@ -23,9 +24,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpGet, Route("getAll")]
         public IActionResult Get()
         {
-            if (_PagosData.GetPagos().Count() > 0)
+            if (_PagosData.Get().Count() > 0)
             {
-                return Ok(_PagosData.GetPagos());
+                return Ok(_PagosData.Get());
             }
             else
             {
@@ -42,7 +43,7 @@ namespace Condominiosdotcom.Api.Controllers
 
             if (codigo > 0)
             {
-                return Ok(_PagosData.GetPagos(codigo));
+                return Ok(_PagosData.Get(codigo));
             }
             else
             {
@@ -57,7 +58,7 @@ namespace Condominiosdotcom.Api.Controllers
         {
             if (pagos != null)
             {
-                return Ok(_PagosData.AddPagos(pagos));
+                return Ok(_PagosData.Add(pagos));
             }
             else
             {
@@ -72,7 +73,7 @@ namespace Condominiosdotcom.Api.Controllers
             if (pagos != null)
             {
 
-                return Ok(_PagosData.ModifyPagos(pagos));
+                return Ok(_PagosData.Modify(pagos));
             }
             else
             {
@@ -84,9 +85,9 @@ namespace Condominiosdotcom.Api.Controllers
         [HttpDelete, Route("DeleteOne/{codigo}")]
         public IActionResult Delete(int codigo)
         {
-            if (_PagosData.GetPagos(codigo) != null)
+            if (_PagosData.Get(codigo) != null)
             {
-                _PagosData.DeletePagos(codigo);
+                _PagosData.Delete(codigo);
                 return Ok();
             }
             else
