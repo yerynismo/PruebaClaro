@@ -9,7 +9,7 @@ using Condominiosdotcom.Api.Models;
 
 namespace Condominiosdotcom.Api.Controllers
 {
-    [Route("api/concepto")]
+    [Route("api/Concepto")]
     [ApiController]
     public class ConceptoController : ControllerBase
     {

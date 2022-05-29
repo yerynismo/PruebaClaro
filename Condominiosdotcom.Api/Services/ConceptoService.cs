@@ -30,7 +30,7 @@ namespace Condominiosdotcom.Api.Services
         {
             try
             {
-                var registrado = _context.Condominio.Find(id);
+                var registrado = _context.Concepto.Find(id);
                 if (registrado != null)
                 {
                     _context.Remove(registrado);

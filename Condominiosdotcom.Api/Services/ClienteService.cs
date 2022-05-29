@@ -35,12 +35,12 @@ namespace Condominiosdotcom.Api.Services
             }
             catch (Exception)
             {
-
+                //TODO borrado en cascada
                 throw;
             }      
         }
 
-        public List<Cliente> GetClient()
+        public IEnumerable<Cliente> Get()
         {
             var cliente = _context.Cliente.ToList();
             return cliente;
@@ -58,5 +58,8 @@ namespace Condominiosdotcom.Api.Services
             _context.SaveChanges();
             return updateClient;
         }
+
+        
+
     }
 }

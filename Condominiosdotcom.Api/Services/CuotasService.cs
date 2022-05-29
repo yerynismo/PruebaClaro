@@ -42,7 +42,10 @@ namespace Condominiosdotcom.Api.Services
 
         public IEnumerable<Cuotas> Get()
         {
-            var Cuota = _context.Cuotas.ToList();
+            var Cuota = _context.Cuotas
+                                       .Include(x => x.ClienteE)
+                                       .Include(x => x.ConceptoE)
+                                       .ToList();
             return Cuota;
         }
 

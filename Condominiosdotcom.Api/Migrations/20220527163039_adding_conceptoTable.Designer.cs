@@ -4,14 +4,16 @@ using Condominiosdotcom.Api;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Condominiosdotcom.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220527163039_adding_conceptoTable")]
+    partial class adding_conceptoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,7 +138,7 @@ namespace Condominiosdotcom.Api.Migrations
                     b.Property<int?>("ClienteID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ConceptoID")
+                    b.Property<int?>("CondominioID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
@@ -155,7 +157,7 @@ namespace Condominiosdotcom.Api.Migrations
 
                     b.HasIndex("ClienteID");
 
-                    b.HasIndex("ConceptoID");
+                    b.HasIndex("CondominioID");
 
                     b.ToTable("Pagos");
                 });
@@ -219,13 +221,13 @@ namespace Condominiosdotcom.Api.Migrations
                         .WithMany()
                         .HasForeignKey("ClienteID");
 
-                    b.HasOne("Condominiosdotcom.Api.Models.Concepto", "ConceptoE")
+                    b.HasOne("Condominiosdotcom.Api.Models.Condominio", "CondominioE")
                         .WithMany()
-                        .HasForeignKey("ConceptoID");
+                        .HasForeignKey("CondominioID");
 
                     b.Navigation("ClienteE");
 
-                    b.Navigation("ConceptoE");
+                    b.Navigation("CondominioE");
                 });
 #pragma warning restore 612, 618
         }

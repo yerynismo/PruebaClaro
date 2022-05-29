@@ -39,6 +39,7 @@ namespace Condominiosdotcom.Api
             services.AddScoped<IPagosService, PagosService>();
             services.AddScoped<ICuotaService, CuotasService>();
             services.AddScoped<IConceptoService, ConceptoService>();
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddSwaggerGen(c =>
             {

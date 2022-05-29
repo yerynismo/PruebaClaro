@@ -42,7 +42,10 @@ namespace Condominiosdotcom.Api.Services
 
         public IEnumerable<Pagos> Get()
         {
-            var Pagos = _context.Pagos.ToList();
+            var Pagos = _context.Pagos
+                                .Include(p => p.ClienteE)
+                                .Include(p => p.ConceptoE)
+                                .ToList();
             return Pagos;
         }
 

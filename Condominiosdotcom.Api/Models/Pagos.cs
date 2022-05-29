@@ -15,9 +15,9 @@ namespace Condominiosdotcom.Api.Models
         public int? ClienteID { get; set; }
         [ForeignKey("ClienteID")]
         public virtual Cliente ClienteE { get; set; }
-        public int? CondominioID { get; set; }
-        [ForeignKey("CondominioID")]
-        public virtual Condominio CondominioE { get; set; }
+        public int? ConceptoID { get; set; }
+        [ForeignKey("ConceptoID")]
+        public virtual Concepto ConceptoE { get; set; }
         public int Pendiente { get; set; }
         public int Mora { get; set; }
         public int Monto { get; set; }
