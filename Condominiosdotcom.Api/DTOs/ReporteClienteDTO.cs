@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Condominiosdotcom.Api.Models
+namespace Condominiosdotcom.Api.DTOs
 {
     public class ReporteClienteDTO
     {

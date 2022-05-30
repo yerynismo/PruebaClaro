@@ -44,16 +44,28 @@ namespace Condominiosdotcom.Api.Services
             }
         }
 
-        public IEnumerable<Concepto> Get()
+        public IEnumerable<Concepto> Get(bool? isRecurrente)
         {
-            var concepto = _context.Concepto.ToList();
-            return concepto;
+
+            var query = _context.Concepto.AsQueryable();
+
+            if(isRecurrente.HasValue)
+            {
+                query = query.Where(x => x.Recurrencia == isRecurrente.Value);
+            }
+
+            return query.ToList();
         }
 
         public Concepto Get(int id)
         {
             var unConcepto = _context.Concepto.FirstOrDefault(x => x.ConceptoID == id);
             return unConcepto;
+        }
+
+        public IEnumerable<Concepto> Get()
+        {
+            throw new NotImplementedException();
         }
 
         public Concepto Modify(Concepto updateConcept)
