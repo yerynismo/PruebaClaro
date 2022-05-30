@@ -20,6 +20,13 @@ namespace Condominiosdotcom.Api.Controllers
             _service = service;
         }
 
+        // GET REPORT:
+        [HttpGet, Route("getReport/{id}")]
+        public IActionResult GetReport(int id)
+        {
+            return Ok(_service.GetReport(id));
+        }
+
         // GET:
         [HttpGet, Route("getAll")]
         public IActionResult Get()

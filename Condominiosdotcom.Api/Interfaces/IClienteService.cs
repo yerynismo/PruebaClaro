@@ -1,4 +1,5 @@
-﻿using Condominiosdotcom.Api.Models;
+﻿using Condominiosdotcom.Api.DTOs;
+using Condominiosdotcom.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,6 @@ namespace Condominiosdotcom.Api.Interfaces
 {
   public interface IClienteService: IService<Cliente>
     {
+        IEnumerable<ReporteClienteDTO> GetReport(int id);
     }
 }

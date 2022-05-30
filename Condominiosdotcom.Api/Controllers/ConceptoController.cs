@@ -21,9 +21,9 @@ namespace Condominiosdotcom.Api.Controllers
 
         // GET:
         [HttpGet, Route("getAll")]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] bool? isRecurrente)
         {
-            return Ok(_service.Get());
+            return Ok(_service.Get(isRecurrente));
         }
 
         // GET 

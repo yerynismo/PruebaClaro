@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Condominiosdotcom.Api.DTOs;
 
 namespace Condominiosdotcom.Api.Services
 {
@@ -25,19 +26,14 @@ namespace Condominiosdotcom.Api.Services
 
         public void Delete(int id)
         {
-            try
+
+            var registrado = _context.Cliente.Find(id);
+            if (registrado != null)
             {
-                var registrado = _context.Cliente.Find(id);
-                if (registrado != null) {
-                    _context.Remove(registrado);
-                    _context.SaveChanges();
-                }
+                _context.Remove(registrado);
+                _context.SaveChanges();
             }
-            catch (Exception)
-            {
-                //TODO borrado en cascada
-                throw;
-            }      
+
         }
 
         public IEnumerable<Cliente> Get()
@@ -52,14 +48,29 @@ namespace Condominiosdotcom.Api.Services
             return unCliente;
         }
 
+        public IEnumerable<ReporteClienteDTO> GetReport(int id)
+        {
+            var query = (from c in _context.Cuotas
+                         join p in _context.Pagos on c.ClienteID equals p.ClienteID
+                         where c.ClienteID == id
+                         select new ReporteClienteDTO
+                         {
+                             ClienteID = c.ClienteID,
+                             Nombre = c.ClienteE.Nombre,
+                             Apellido = c.ClienteE.Apellido,
+                             MoraCuota = c.Mora,
+                             MoraPago = p.Mora,
+                             PendienteCuota = c.Pendiente,
+                             PendientePago = p.Pendiente
+                         }).ToList();
+            return query;
+        }
+
         public Cliente Modify(Cliente updateClient)
         {
             _context.Entry(updateClient).State = EntityState.Modified;
             _context.SaveChanges();
             return updateClient;
         }
-
-        
-
     }
 }
